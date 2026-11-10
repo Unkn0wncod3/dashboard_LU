@@ -1,0 +1,31 @@
+{
+  "anzahl_maengel": 9972,
+  "vollstaendig": false,
+  "zeitraum": {
+    "von": "2023-02-28",
+    "bis": "2026-11-10"
+  },
+  "nach_status": {
+    "Gelöst": 8618,
+    "Ungelöst Abgeschlossen": 826,
+    "in Bearbeitung": 528
+  },
+  "nach_kategorie": {
+    "Bauwerke wie Brücken oder Unterführungen": 21,
+    "Bushaltestellen": 14,
+    "Bäume": 203,
+    "Defekte Straßenbeleuchtung": 507,
+    "Kfz ohne Zulassung": 476,
+    "Kleinabfälle": 1842,
+    "Lichtsignalanlagen": 109,
+    "Radwegschäden": 100,
+    "Reinigung Fahrbahn etc.": 588,
+    "Spielplätze": 122,
+    "Straßenschaden": 1264,
+    "Sträucher und Grünflächen": 639,
+    "Wilde Müllablagerungen": 2900,
+    "defekte ortsfeste Straßenschilder und Fahrbahnmarkierungen": 469,
+    "Öffentliche Kanalisation": 316,
+    "Überfüllte Müllbehälter auf Grünflächen": 402
+  }
+}

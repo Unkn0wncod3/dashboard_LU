@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#154d70">
+  <title>Kategorie – Mängelmelder Ludwigshafen</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <div class="topline"></div>
+  <header class="sitehead"><div class="headin"><a href="/" class="identity" aria-label="Zur Statistikübersicht"><div class="logo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 26V12l11-8 11 8v14H5Z"/><path d="M12 26v-9h8v9"/></svg></div><div class="brand">Mängelmelder<span>Stadt Ludwigshafen am Rhein</span></div></a><nav class="headlinks"><a class="active" href="/">Statistikübersicht</a><a class="original" href="https://ludwigshafen.maengelmelder.de/bms#pageid=1" target="_blank" rel="noopener">Originalportal ↗</a></nav></div></header>
+  <main class="categoryPage">
+    <a class="backLink" href="/">← Zurück zur Übersicht</a>
+    <div id="categoryError" class="dataError hidden"></div>
+    <div id="categoryContent">
+      <section class="categoryHero"><div><div class="eyebrow">Kategorie</div><h1 id="categoryTitle">Wird geladen …</h1><p>Eigene Auswertung und alle lokal verfügbaren Meldungen dieser Kategorie.</p></div><div class="categoryBadge"><strong id="categoryBadgeCount">–</strong><span>Meldungen</span></div></section>
+      <section class="categoryStats" aria-label="Kategoriespezifische Kennzahlen"><div class="categoryStat"><span>Gelöst</span><strong id="categoryResolved">–</strong></div><div class="categoryStat"><span>In Bearbeitung / offen</span><strong id="categoryActive">–</strong></div><div class="categoryStat"><span>Lösungsquote</span><strong id="categoryResolvedRate">–</strong></div><div class="categoryStat"><span>Pro Tag</span><strong id="categoryDailyAverage">–</strong></div><div class="categoryStat"><span>Letzte 7 Tage</span><strong id="categoryRecent">–</strong></div></section>
+      <section class="panel categoryTimeline"><div class="panelHead"><div><h2>Täglicher Meldungseingang</h2><p>Wochentage und Tagesgrenzen sind direkt im Verlauf markiert</p></div><span class="panelTag" id="categoryPeak">Spitzentag: –</span></div><svg class="trendGraph" id="categoryTrend" viewBox="0 0 700 240" role="img" aria-label="Täglicher Meldungseingang dieser Kategorie"></svg></section>
+      <section class="panel"><div class="categoryListHead"><div><h2 style="font-size:16px;margin:0">Alle Meldungen</h2><p style="font-size:11px;color:#899ba4;margin:4px 0 0">Ein Klick öffnet den Originaleintrag</p></div><div class="categoryListControls"><label>Status<select id="categoryStatus"><option value="all">Alle</option><option>Offen</option><option>In Bearbeitung</option><option>Gelöst</option><option>Abgeschlossen</option></select></label><label>Pro Seite<select id="categoryPageSize"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option></select></label><input class="search" id="categorySearch" type="search" placeholder="Meldungen oder Orte durchsuchen" aria-label="Kategorie durchsuchen"></div></div><div class="categoryReports" id="categoryReports"></div><div class="categoryPagination"><span id="categoryCountLabel">–</span><div class="categoryPaginationButtons"><button class="pagebtn" id="categoryPrev" aria-label="Vorherige Seite">‹</button><span id="categoryPageLabel">1 / 1</span><button class="pagebtn" id="categoryNext" aria-label="Nächste Seite">›</button></div></div></section>
+    </div>
+  </main>
+  <script src="/assets/category.js" defer></script>
+</body>
+</html>
