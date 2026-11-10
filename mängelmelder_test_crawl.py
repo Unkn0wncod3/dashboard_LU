@@ -354,7 +354,8 @@ def erstelle_minimale_statistik_json(analyse: dict[str, Any] | str) -> str:
         category = record.get("kategorie")
         reported_at = record.get("gemeldet_am")
         if isinstance(status, str) and status:
-            statuses[status] = statuses.get(status, 0) + 1
+            status_key = "Gelöst" if re.search(r"abgeschloss|closed", status, re.IGNORECASE) else status
+            statuses[status_key] = statuses.get(status_key, 0) + 1
         if isinstance(category, str) and category:
             categories[category] = categories.get(category, 0) + 1
         if isinstance(reported_at, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", reported_at):

@@ -19,8 +19,7 @@
   function normalizeStatus(value) {
     const status = String(value || "").toLowerCase();
     if (/bearbeit|progress|läuft|pr[oü]fung/.test(status)) return "In Bearbeitung";
-    if (/ungel[oö]st.*abgeschloss|abgeschloss|closed|abgelehnt|rejected/.test(status)) return "Abgeschlossen";
-    if (/gel[oö]st|behoben|resolved|erledig/.test(status)) return "Gelöst";
+    if (/ungel[oö]st.*abgeschloss|abgeschloss|closed|abgelehnt|rejected|gel[oö]st|behoben|resolved|erledig/.test(status)) return "Gelöst";
     return "Offen";
   }
 
@@ -111,7 +110,6 @@
     if (!values.length) {
       trendModel = null;
       svg.innerHTML = '<text x="350" y="120" text-anchor="middle" fill="#91a4af">Keine Meldungen im gewählten Zeitraum</text>';
-      $("#categoryTrendTag").textContent = mode === "week" ? "Wöchentlich" : "Täglich";
       $("#categoryPeak").textContent = "Spitzentag: –";
       return;
     }
@@ -141,7 +139,6 @@
     const dots = detailed ? values.map((value, index) => `<circle cx="${x(index)}" cy="${y(value)}" r="4" fill="white" stroke="#397f9e" stroke-width="2"/>`).join("") : "";
     svg.innerHTML = `<defs><linearGradient id="categoryAreaGradient" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5ca3bc" stop-opacity=".25"/><stop offset="1" stop-color="#5ca3bc" stop-opacity=".005"/></linearGradient></defs>${grid}${separators}<polygon points="${area}" fill="url(#categoryAreaGradient)"/><polyline class="trendLine" points="${points}" fill="none" stroke="#397f9e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${dots}${labels}<rect class="trendInteraction" x="${left}" y="${top}" width="${chartWidth}" height="${chartHeight}" fill="transparent"/><g id="categoryTrendHover" hidden pointer-events="none"><line id="categoryTrendHoverLine" y1="${top}" y2="${y(0)}" stroke="#1d5f7b" stroke-width="1" stroke-dasharray="2 3"/><circle id="categoryTrendHoverDot" r="5" fill="#fff" stroke="#1d5f7b" stroke-width="2.5"/><rect id="categoryTrendHoverBox" width="190" height="26" rx="5" fill="#244f64"/><text id="categoryTrendHoverText" class="trendHoverText" dominant-baseline="middle"></text></g>`;
     trendModel = { keys, values, mode, width, left, right, top, chartWidth, x, y };
-    $("#categoryTrendTag").textContent = `${mode === "week" ? "Wöchentlich" : "Täglich"} · ${keys.length} Werte${detailed ? " · Punkte" : " · Linie"}`;
     const dailyCounts = trendRows.reduce((result, row) => {
       result[row.date] = (result[row.date] || 0) + 1;
       return result;
@@ -197,7 +194,7 @@
     const start = page * pageSize;
     const current = list.slice(start, start + pageSize);
     $("#categoryReports").innerHTML = current.length ? current.map((row) => {
-      const statusClass = ({ "Gelöst": "geloest", "In Bearbeitung": "bearbeitung", "Offen": "offen", "Abgeschlossen": "abgeschlossen" })[row.status] || "abgeschlossen";
+      const statusClass = ({ "Gelöst": "geloest", "In Bearbeitung": "bearbeitung", "Offen": "offen" })[row.status] || "offen";
       const content = `<span><span class="reportCardTitle">${escapeHtml(row.title)}</span><span class="reportCardMeta"><span>#${escapeHtml(row.id)}</span><span>${formatDate(row.date)}</span><span class="status ${statusClass}">${escapeHtml(row.status)}</span></span></span><span class="reportCardLocation">${escapeHtml(row.location)}</span><span class="reportCardAction">Original öffnen ↗</span>`;
       return row.detailUrl ? `<a class="reportCard" href="${escapeHtml(row.detailUrl)}" target="_blank" rel="noopener">${content}</a>` : `<div class="reportCard">${content}</div>`;
     }).join("") : '<div class="empty">Keine passenden Meldungen gefunden.</div>';

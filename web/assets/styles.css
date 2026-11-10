@@ -60,6 +60,12 @@ tbody tr:hover{background:#fbfdfe}
 .trendGraph .trendInteraction{cursor:crosshair}
 .trendGraph .trendLine{filter:drop-shadow(0 1px 1px rgba(26,79,103,.12))}
 .trendGraph .trendHoverText{font-size:10px;font-weight:750;fill:#fff}
+.trendGraph [hidden]{display:none}
+.dataNoticeCompact{display:inline-flex;align-items:center;gap:6px;max-width:270px;color:#708690;font-size:10px;line-height:1.35}
+.dataNoticeCompact:before{content:"";width:7px;height:7px;flex:none;border-radius:50%;background:#d9a252}
+.dataNoticeCompact.isSuccess{color:#39775f}.dataNoticeCompact.isSuccess:before{background:#3c9578}
+.dataNoticeCompact.hasWarning{color:#8b682e}.dataNoticeCompact.hasWarning:before{background:#dda34d}
+.dataNoticeCompact.hasError{color:#a55248}.dataNoticeCompact.hasError:before{background:#c9695d}
 
 /* Kategorie-Detailseite */
 .categoryPage{max-width:1240px;margin:0 auto;padding:30px 36px 60px}
@@ -173,6 +179,9 @@ tbody tr:hover{background:#fbfdfe}
   .layout{display:grid;grid-template-columns:180px minmax(0,1fr);gap:18px;padding-inline:18px}
   .layout.sidebarCollapsed{grid-template-columns:64px minmax(0,1fr)}
   .side{display:block}
+  .headline{align-items:flex-start;flex-direction:column}
+  .dataActions{align-items:flex-start}
+  .refreshStatus{text-align:left}
   .wallboardPage{height:auto;overflow:auto}
   .wallboardLayout{height:auto;min-height:calc(100vh - 90px)}
   .overviewGrid{grid-template-rows:none!important}

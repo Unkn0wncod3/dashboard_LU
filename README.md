@@ -187,6 +187,9 @@ Serverdateien noch einmal ein.
   durchgehende Linie. Exakte Werte erscheinen beim Darüberfahren.
 - Kennzahlen für Gesamtmenge, gelöste und aktive Meldungen, Tagesdurchschnitt
   sowie Meldungen der letzten sieben Tage
+- die Quellstatus „Gelöst“ und „Abgeschlossen“ werden in Auswertungen gemeinsam
+  als „Gelöst“ dargestellt; die unveränderten Einzelfalldaten behalten ihren
+  ursprünglichen Quellstatus
 - sichtbarer Spitzentag im gewählten Zeitraum
 - Karten je Meldekategorie mit Volumen, Anteil, aktivem Bestand und
   Lösungsquote

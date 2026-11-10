@@ -5,8 +5,8 @@
   const SUMMARY_URL = "/api/statistik";
   const REFRESH_URL = "/api/aktualisieren";
   const REFRESH_STATUS_URL = "/api/aktualisierungsstatus";
-  const STATUS_ORDER = ["Gelöst", "In Bearbeitung", "Offen", "Abgeschlossen"];
-  const STATUS_COLORS = { "Gelöst": "#348b70", "In Bearbeitung": "#dfae61", "Offen": "#cd7567", "Abgeschlossen": "#95a5b1" };
+  const STATUS_ORDER = ["Gelöst", "In Bearbeitung", "Offen"];
+  const STATUS_COLORS = { "Gelöst": "#348b70", "In Bearbeitung": "#dfae61", "Offen": "#cd7567" };
   const WEEKDAY_LABELS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
   const DAY_MS = 86_400_000;
   const $ = (selector) => document.querySelector(selector);
@@ -52,8 +52,7 @@
   function normalizeStatus(value) {
     const status = String(value || "").toLowerCase();
     if (/bearbeit|progress|läuft|pr[oü]fung/.test(status)) return "In Bearbeitung";
-    if (/ungel[oö]st.*abgeschloss|abgeschloss|closed|abgelehnt|rejected/.test(status)) return "Abgeschlossen";
-    if (/gel[oö]st|behoben|resolved|erledig/.test(status)) return "Gelöst";
+    if (/ungel[oö]st.*abgeschloss|abgeschloss|closed|abgelehnt|rejected|gel[oö]st|behoben|resolved|erledig/.test(status)) return "Gelöst";
     return "Offen";
   }
 
@@ -152,7 +151,6 @@
     if (!values.length) {
       trendModel = null;
       svg.innerHTML = '<text x="350" y="120" text-anchor="middle" fill="#91a4af">Keine Meldungen im gewählten Zeitraum</text>';
-      $("#trendTag").textContent = mode === "week" ? "Wöchentlich" : "Täglich";
       $("#peakDay").textContent = "Spitzentag: –";
       return;
     }
@@ -184,7 +182,6 @@
     const dots = detailed ? values.map((value, index) => `<circle cx="${x(index)}" cy="${y(value)}" r="4" fill="white" stroke="#397f9e" stroke-width="2"/>`).join("") : "";
     svg.innerHTML = `<defs><linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5ca3bc" stop-opacity=".25"/><stop offset="1" stop-color="#5ca3bc" stop-opacity=".005"/></linearGradient></defs>${grid}${separators}<polygon points="${area}" fill="url(#areaGradient)"/><polyline class="trendLine" points="${points}" fill="none" stroke="#397f9e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${dots}${labels}<rect class="trendInteraction" x="${left}" y="${top}" width="${chartWidth}" height="${chartHeight}" fill="transparent"/><g id="trendHover" hidden pointer-events="none"><line id="trendHoverLine" y1="${top}" y2="${y(0)}" stroke="#1d5f7b" stroke-width="1" stroke-dasharray="2 3"/><circle id="trendHoverDot" r="5" fill="#fff" stroke="#1d5f7b" stroke-width="2.5"/><rect id="trendHoverBox" width="190" height="26" rx="5" fill="#244f64"/><text id="trendHoverText" class="trendHoverText" dominant-baseline="middle"></text></g>`;
     trendModel = { keys, values, mode, width, left, right, top, chartWidth, chartHeight, x, y };
-    $("#trendTag").textContent = `${mode === "week" ? "Wöchentlich" : "Täglich"} · ${keys.length} Werte${detailed ? " · Punkte" : " · Linie"}`;
     const dailyCounts = groupBy(rows, (row) => row.date);
     const peak = Object.entries(dailyCounts).sort((a, b) => b[1] - a[1] || b[0].localeCompare(a[0]))[0];
     $("#peakDay").textContent = peak ? `Spitzentag: ${formatDate(peak[0])} · ${peak[1]}` : "Spitzentag: –";
@@ -270,7 +267,7 @@
     const firstIndex = currentPage * pageSize;
     const subset = list.slice(firstIndex, firstIndex + pageSize);
     $("#mainReports").innerHTML = subset.length ? subset.map((row) => {
-      const statusClass = ({ "Gelöst": "geloest", "In Bearbeitung": "bearbeitung", "Offen": "offen", "Abgeschlossen": "abgeschlossen" })[row.status] || "abgeschlossen";
+      const statusClass = ({ "Gelöst": "geloest", "In Bearbeitung": "bearbeitung", "Offen": "offen" })[row.status] || "offen";
       const content = `<span><span class="reportCardTitle">${escapeHtml(row.title)}</span><span class="reportCardMeta"><span>#${escapeHtml(row.id)}</span><span>${formatDate(row.date)}</span><span class="reportCardCategory">${escapeHtml(row.category)}</span><span class="status ${statusClass}">${escapeHtml(row.status)}</span></span></span><span class="reportCardLocation">${escapeHtml(row.location)}</span><span class="reportCardAction">${row.detailUrl ? "Original öffnen ↗" : "Kein Link verfügbar"}</span>`;
       return row.detailUrl ? `<a class="reportCard" href="${escapeHtml(row.detailUrl)}" target="_blank" rel="noopener">${content}</a>` : `<div class="reportCard">${content}</div>`;
     }).join("") : '<div class="empty">Keine passenden Meldungen gefunden.</div>';
@@ -302,21 +299,19 @@
       if (!normalized.length) throw new Error("Keine Meldungen mit gültigem Datum gefunden.");
       data = normalized;
       currentPage = 0;
-      $("#dataBadge").textContent = "LOKALE SERVERDATEN";
-      $("#dataBadge").style.cssText = "color:#33785e;background:#e7f5ee;border-color:#cde8d9";
-      $("#dataNotice").innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m7 12 3 3 7-7"/></svg><span><strong>Lokale Serverdaten geladen.</strong> Gesamt- und Minimalstatistik wurden erfolgreich eingelesen.</span>';
-      const coverage = analysis.abdeckung?.vollstaendig ? "Portalbestand vollständig" : "lokaler Teilbestand";
+      $("#dataNotice").className = "dataNoticeCompact isSuccess";
+      $("#dataNotice").innerHTML = `<span><strong>Serverdaten geladen</strong> · ${formatNumber(normalized.length)} Meldungen</span>`;
       if (summary.anzahl_maengel !== normalized.length) {
-        $("#dataNotice").innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 17h.01"/></svg><span><strong>Datenstände weichen voneinander ab.</strong> Gesamtauswertung: ${formatNumber(normalized.length)} · Minimalstatistik: ${formatNumber(summary.anzahl_maengel)} · ${coverage}.</span>`;
+        $("#dataNotice").className = "dataNoticeCompact hasWarning";
+        $("#dataNotice").innerHTML = `<span><strong>Datenstände weichen ab</strong> · ${formatNumber(normalized.length)} / ${formatNumber(summary.anzahl_maengel)}</span>`;
       }
       render();
       toast(`${normalized.length} Meldungen aus beiden JSON-Endpunkten geladen.`);
       return true;
     } catch (error) {
       data = [];
-      $("#dataBadge").textContent = "DATENFEHLER";
-      $("#dataBadge").style.cssText = "color:#a14d43;background:#faece9;border-color:#efcfc9";
-      $("#dataNotice").innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 17h.01"/></svg><span><strong>Lokale Serverdaten konnten nicht geladen werden.</strong> Server und JSON-Dateien prüfen.</span>';
+      $("#dataNotice").className = "dataNoticeCompact hasError";
+      $("#dataNotice").innerHTML = '<span><strong>Serverdaten nicht verfügbar</strong></span>';
       render();
       toast(`Datenladen fehlgeschlagen: ${error.message}`);
       return false;

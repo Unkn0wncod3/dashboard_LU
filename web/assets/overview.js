@@ -12,8 +12,7 @@
   function normalizeStatus(value) {
     const status = String(value || "").toLowerCase();
     if (/bearbeit|progress|läuft|pr[oü]fung/.test(status)) return "In Bearbeitung";
-    if (/ungel[oö]st.*abgeschloss|abgeschloss|closed|abgelehnt|rejected/.test(status)) return "Abgeschlossen";
-    if (/gel[oö]st|behoben|resolved|erledig/.test(status)) return "Gelöst";
+    if (/ungel[oö]st.*abgeschloss|abgeschloss|closed|abgelehnt|rejected|gel[oö]st|behoben|resolved|erledig/.test(status)) return "Gelöst";
     return "Offen";
   }
 
@@ -71,7 +70,7 @@
         { label: "Datenstand", value: formatDate(newest), note: "neuester Meldungseingang" },
         { label: "In Bearbeitung", value: formatNumber(statuses["In Bearbeitung"] || 0), note: "aktueller Status" },
         { label: "Offen", value: formatNumber(statuses.Offen || 0), note: "aktueller Status" },
-        { label: "Abgeschlossen", value: formatNumber(statuses.Abgeschlossen || 0), note: "nicht als gelöst gewertet" },
+        { label: "Zeitraum seit", value: formatDate(oldest), note: "ältester lokaler Meldungseingang" },
         { label: "Minimalstatistik", value: formatNumber(summary.anzahl_maengel), note: summary.anzahl_maengel === rows.length ? "konsistent mit Gesamtauswertung" : "abweichender Datenstand" },
       ];
       document.querySelector("#sourceState").textContent = "Quelle verfügbar";

@@ -169,6 +169,19 @@ class MaengelmelderAnalyseTests(unittest.TestCase):
         self.assertNotIn("Teststraße", minimal_json)
         self.assertNotIn("123", minimal_json)
 
+    def test_minimalstatistik_fasst_abgeschlossen_und_geloest_zusammen(self):
+        analyse = {
+            "abdeckung": {"vollstaendig": False},
+            "maengel": [
+                {"status": "Gelöst", "gemeldet_am": "2026-11-09"},
+                {"status": "Ungelöst Abgeschlossen", "gemeldet_am": "2026-11-10"},
+            ],
+        }
+
+        minimal = json.loads(modul.erstelle_minimale_statistik_json(analyse))
+
+        self.assertEqual(minimal["nach_status"], {"Gelöst": 2})
+
 
 if __name__ == "__main__":
     unittest.main()
