@@ -193,8 +193,9 @@
 
   function showTrendHover(event) {
     if (!trendModel) return;
-    const svg = $("#trend"), bounds = svg.getBoundingClientRect();
-    const svgX = ((event.clientX - bounds.left) / bounds.width) * trendModel.width;
+    const svg = $("#trend"), matrix = svg.getScreenCTM();
+    if (!matrix) return;
+    const svgX = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse()).x;
     const ratio = Math.max(0, Math.min(1, (svgX - trendModel.left) / trendModel.chartWidth));
     const index = Math.round(ratio * Math.max(0, trendModel.values.length - 1));
     const pointX = trendModel.x(index), pointY = trendModel.y(trendModel.values[index]);
@@ -258,7 +259,7 @@
     $("#weekdayBars").innerHTML = counts.map((count, index) => `<div class="weekdayitem" title="${WEEKDAY_LABELS[index]}: ${count} Meldungen"><div class="bubble">${count}</div><div class="bar ${count === maximum ? "high" : ""}" style="height:${Math.max(2, (count / maximum) * 123)}px"></div><span>${WEEKDAY_LABELS[index]}</span></div>`).join("");
   }
 
-  function renderTable(rows) {
+  function renderReports(rows) {
     const query = $("#search").value.toLocaleLowerCase("de").trim();
     const selectedStatus = $("#tableStatus").value;
     const pageSize = Number($("#pageSize").value) || 15;
@@ -269,11 +270,11 @@
     currentPage = Math.min(currentPage, pageCount - 1);
     const firstIndex = currentPage * pageSize;
     const subset = list.slice(firstIndex, firstIndex + pageSize);
-    $("#tableBody").innerHTML = subset.length ? subset.map((row) => {
-      const id = row.detailUrl ? `<a class="messageLink" href="${escapeHtml(row.detailUrl)}" target="_blank" rel="noopener">#${escapeHtml(row.id)} ↗</a>` : `#${escapeHtml(row.id)}`;
+    $("#mainReports").innerHTML = subset.length ? subset.map((row) => {
       const statusClass = ({ "Gelöst": "geloest", "In Bearbeitung": "bearbeitung", "Offen": "offen", "Abgeschlossen": "abgeschlossen" })[row.status] || "abgeschlossen";
-      return `<tr class="clickableRow" data-url="${escapeHtml(row.detailUrl)}" tabindex="${row.detailUrl ? "0" : "-1"}" aria-label="Originalmeldung ${escapeHtml(row.id)} öffnen"><td>${id}</td><td class="messageTitle">${escapeHtml(row.title)}</td><td>${escapeHtml(row.category)}</td><td class="locationCell">${escapeHtml(row.location)}</td><td>${formatDate(row.date)}</td><td><span class="status ${statusClass}">${escapeHtml(row.status)}</span></td></tr>`;
-    }).join("") : '<tr><td colspan="6"><div class="empty">Keine passenden Meldungen gefunden.</div></td></tr>';
+      const content = `<span><span class="reportCardTitle">${escapeHtml(row.title)}</span><span class="reportCardMeta"><span>#${escapeHtml(row.id)}</span><span>${formatDate(row.date)}</span><span class="reportCardCategory">${escapeHtml(row.category)}</span><span class="status ${statusClass}">${escapeHtml(row.status)}</span></span></span><span class="reportCardLocation">${escapeHtml(row.location)}</span><span class="reportCardAction">${row.detailUrl ? "Original öffnen ↗" : "Kein Link verfügbar"}</span>`;
+      return row.detailUrl ? `<a class="reportCard" href="${escapeHtml(row.detailUrl)}" target="_blank" rel="noopener">${content}</a>` : `<div class="reportCard">${content}</div>`;
+    }).join("") : '<div class="empty">Keine passenden Meldungen gefunden.</div>';
     $("#countLabel").textContent = `${formatNumber(list.length)} Meldungen · ${list.length ? `${formatNumber(firstIndex + 1)}–${formatNumber(Math.min(firstIndex + pageSize, list.length))}` : "0"} angezeigt`;
     $("#pageLabel").textContent = `${currentPage + 1} / ${pageCount}`;
     $("#prev").disabled = currentPage <= 0;
@@ -288,7 +289,7 @@
     renderDepartments(rows);
     renderCategoryBars(rows);
     renderWeekdays(rows);
-    renderTable(rows);
+    renderReports(rows);
   }
 
   async function loadServerData() {
@@ -481,17 +482,6 @@
   $("#tableStatus").addEventListener("change", () => { currentPage = 0; render(); });
   $("#prev").addEventListener("click", () => { currentPage -= 1; render(); });
   $("#next").addEventListener("click", () => { currentPage += 1; render(); });
-  $("#tableBody").addEventListener("click", (event) => {
-    const row = event.target.closest(".clickableRow");
-    if (row?.dataset.url && !event.target.closest("a")) window.open(row.dataset.url, "_blank", "noopener");
-  });
-  $("#tableBody").addEventListener("keydown", (event) => {
-    const row = event.target.closest(".clickableRow");
-    if (row?.dataset.url && ["Enter", " "].includes(event.key)) {
-      event.preventDefault();
-      window.open(row.dataset.url, "_blank", "noopener");
-    }
-  });
   $("#csvExport").addEventListener("click", () => {
     const selectedStatus = $("#tableStatus").value;
     const rows = filteredRows().filter((row) => selectedStatus === "all" || row.status === selectedStatus);

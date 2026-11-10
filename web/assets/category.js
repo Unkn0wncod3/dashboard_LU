@@ -10,6 +10,7 @@
 
   let rows = [];
   let page = 0;
+  let trendModel = null;
 
   function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
@@ -61,42 +62,123 @@
     $("#categoryRecent").textContent = formatNumber(recent);
   }
 
-  function renderTrend() {
-    const svg = $("#categoryTrend");
-    const grouped = rows.reduce((result, row) => {
-      result[row.date] = (result[row.date] || 0) + 1;
+  function getTrendRows() {
+    const dates = rows.map((row) => row.date).filter(Boolean).sort();
+    const end = dates.at(-1) || toIsoDate(new Date());
+    const period = $("#categoryPeriod").value;
+    let start = "0000-01-01", rangeEnd = "9999-12-31";
+    if (period === "custom") {
+      start = $("#categoryFromDate").value || start;
+      rangeEnd = $("#categoryToDate").value || rangeEnd;
+    } else if (period !== "all") {
+      const startDate = new Date(`${end}T12:00:00`);
+      startDate.setDate(startDate.getDate() - (Number(period) - 1));
+      start = toIsoDate(startDate);
+      rangeEnd = end;
+    }
+    return rows.filter((row) => row.date >= start && row.date <= rangeEnd);
+  }
+
+  function startOfWeek(dateString) {
+    const date = new Date(`${dateString}T12:00:00`);
+    date.setDate(date.getDate() - ((date.getDay() + 6) % 7));
+    return toIsoDate(date);
+  }
+
+  function buildTimeline(trendRows, mode) {
+    if (!trendRows.length) return { keys: [], values: [] };
+    const grouped = trendRows.reduce((result, row) => {
+      const key = mode === "week" ? startOfWeek(row.date) : row.date;
+      result[key] = (result[key] || 0) + 1;
       return result;
     }, {});
-    const knownDates = Object.keys(grouped).sort();
-    if (!knownDates.length) {
-      svg.innerHTML = '<text x="350" y="120" text-anchor="middle" fill="#91a4af">Keine Datumswerte verfügbar</text>';
-      return;
-    }
+    const groupedKeys = Object.keys(grouped).sort();
     const keys = [];
-    const cursor = new Date(`${knownDates[0]}T12:00:00`);
-    const last = new Date(`${knownDates.at(-1)}T12:00:00`);
+    const cursor = new Date(`${groupedKeys[0]}T12:00:00`);
+    const last = new Date(`${groupedKeys.at(-1)}T12:00:00`);
     while (cursor <= last && keys.length < 1000) {
       keys.push(toIsoDate(cursor));
-      cursor.setDate(cursor.getDate() + 1);
+      cursor.setDate(cursor.getDate() + (mode === "week" ? 7 : 1));
     }
-    const values = keys.map((key) => grouped[key] || 0);
+    return { keys, values: keys.map((key) => grouped[key] || 0) };
+  }
+
+  function renderTrend() {
+    const svg = $("#categoryTrend");
+    const trendRows = getTrendRows();
+    const mode = $("#categoryGranularity").value;
+    const { keys, values } = buildTimeline(trendRows, mode);
+    if (!values.length) {
+      trendModel = null;
+      svg.innerHTML = '<text x="350" y="120" text-anchor="middle" fill="#91a4af">Keine Meldungen im gewählten Zeitraum</text>';
+      $("#categoryTrendTag").textContent = mode === "week" ? "Wöchentlich" : "Täglich";
+      $("#categoryPeak").textContent = "Spitzentag: –";
+      return;
+    }
     const width = 700, height = 240, left = 42, right = 12, top = 16, bottom = 36;
     const chartWidth = width - left - right, chartHeight = height - top - bottom;
     const maximum = Math.max(5, Math.ceil(Math.max(...values) / 5) * 5);
     const x = (index) => left + (values.length === 1 ? chartWidth / 2 : (index / (values.length - 1)) * chartWidth);
     const y = (value) => top + chartHeight - (value / maximum) * chartHeight;
-    let horizontal = "";
+    let grid = "";
     for (let index = 0; index <= 4; index += 1) {
       const value = maximum * index / 4, yPosition = y(value);
-      horizontal += `<line x1="${left}" y1="${yPosition}" x2="${width - right}" y2="${yPosition}" stroke="#e9eff2"/><text x="${left - 11}" y="${yPosition + 4}" text-anchor="end" font-size="11" fill="#99a9b1">${Math.round(value)}</text>`;
+      grid += `<line x1="${left}" y1="${yPosition}" x2="${width - right}" y2="${yPosition}" stroke="#e9eff2"/><text x="${left - 11}" y="${yPosition + 4}" text-anchor="end" font-size="11" fill="#99a9b1">${Math.round(value)}</text>`;
     }
-    const separators = keys.map((key, index) => `<line x1="${x(index)}" y1="${top}" x2="${x(index)}" y2="${y(0)}" stroke="#b9c9d1" stroke-dasharray="3 5" opacity=".75"/>`).join("");
     const points = values.map((value, index) => `${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(" ");
-    const labels = keys.map((key, index) => `<text x="${x(index)}" y="${height - 9}" font-size="10" font-weight="700" text-anchor="middle" fill="#6f8794">${WEEKDAYS[new Date(`${key}T12:00:00`).getDay()]}</text>`).join("");
-    const dots = values.map((value, index) => `<circle cx="${x(index)}" cy="${y(value)}" r="5" fill="white" stroke="#397f9e" stroke-width="2.5"><title>${formatDate(keys[index])}: ${value} Meldungen</title></circle>`).join("");
-    svg.innerHTML = `${horizontal}${separators}<polyline points="${points}" fill="none" stroke="#397f9e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${dots}${labels}`;
-    const peak = Object.entries(grouped).sort((a, b) => b[1] - a[1] || b[0].localeCompare(a[0]))[0];
-    $("#categoryPeak").textContent = `Spitzentag: ${formatDate(peak[0])} · ${peak[1]}`;
+    const area = `${x(0)},${y(0)} ${points} ${x(values.length - 1)},${y(0)}`;
+    const detailed = values.length <= 31;
+    const labelEvery = Math.max(1, Math.ceil(values.length / (detailed ? 16 : 10)));
+    const labels = keys.map((key, index) => {
+      if (index % labelEvery !== 0 && index !== keys.length - 1) return "";
+      const label = mode === "week" ? `ab ${formatDate(key).slice(0, 5)}` : `${WEEKDAYS[new Date(`${key}T12:00:00`).getDay()]} ${formatDate(key).slice(0, 5)}`;
+      return `<text x="${x(index)}" y="${height - 9}" font-size="9" font-weight="700" text-anchor="middle" fill="#6f8794">${label}</text>`;
+    }).join("");
+    const separators = keys.map((key, index) => {
+      if (!detailed && index % labelEvery !== 0 && index !== keys.length - 1) return "";
+      return `<line x1="${x(index)}" y1="${top}" x2="${x(index)}" y2="${y(0)}" stroke="#b9c9d1" stroke-width="1" stroke-dasharray="3 5" opacity="${detailed ? ".62" : ".45"}"/>`;
+    }).join("");
+    const dots = detailed ? values.map((value, index) => `<circle cx="${x(index)}" cy="${y(value)}" r="4" fill="white" stroke="#397f9e" stroke-width="2"/>`).join("") : "";
+    svg.innerHTML = `<defs><linearGradient id="categoryAreaGradient" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5ca3bc" stop-opacity=".25"/><stop offset="1" stop-color="#5ca3bc" stop-opacity=".005"/></linearGradient></defs>${grid}${separators}<polygon points="${area}" fill="url(#categoryAreaGradient)"/><polyline class="trendLine" points="${points}" fill="none" stroke="#397f9e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${dots}${labels}<rect class="trendInteraction" x="${left}" y="${top}" width="${chartWidth}" height="${chartHeight}" fill="transparent"/><g id="categoryTrendHover" hidden pointer-events="none"><line id="categoryTrendHoverLine" y1="${top}" y2="${y(0)}" stroke="#1d5f7b" stroke-width="1" stroke-dasharray="2 3"/><circle id="categoryTrendHoverDot" r="5" fill="#fff" stroke="#1d5f7b" stroke-width="2.5"/><rect id="categoryTrendHoverBox" width="190" height="26" rx="5" fill="#244f64"/><text id="categoryTrendHoverText" class="trendHoverText" dominant-baseline="middle"></text></g>`;
+    trendModel = { keys, values, mode, width, left, right, top, chartWidth, x, y };
+    $("#categoryTrendTag").textContent = `${mode === "week" ? "Wöchentlich" : "Täglich"} · ${keys.length} Werte${detailed ? " · Punkte" : " · Linie"}`;
+    const dailyCounts = trendRows.reduce((result, row) => {
+      result[row.date] = (result[row.date] || 0) + 1;
+      return result;
+    }, {});
+    const peak = Object.entries(dailyCounts).sort((a, b) => b[1] - a[1] || b[0].localeCompare(a[0]))[0];
+    $("#categoryPeak").textContent = peak ? `Spitzentag: ${formatDate(peak[0])} · ${peak[1]}` : "Spitzentag: –";
+  }
+
+  function showTrendHover(event) {
+    if (!trendModel) return;
+    const svg = $("#categoryTrend"), matrix = svg.getScreenCTM();
+    if (!matrix) return;
+    const svgX = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse()).x;
+    const ratio = Math.max(0, Math.min(1, (svgX - trendModel.left) / trendModel.chartWidth));
+    const index = Math.round(ratio * Math.max(0, trendModel.values.length - 1));
+    const pointX = trendModel.x(index), pointY = trendModel.y(trendModel.values[index]);
+    const boxWidth = 190;
+    const boxX = pointX + boxWidth + 10 > trendModel.width - trendModel.right ? pointX - boxWidth - 10 : pointX + 10;
+    const boxY = Math.max(trendModel.top, pointY - 34);
+    const group = $("#categoryTrendHover");
+    if (!group) return;
+    group.removeAttribute("hidden");
+    $("#categoryTrendHoverLine").setAttribute("x1", pointX);
+    $("#categoryTrendHoverLine").setAttribute("x2", pointX);
+    $("#categoryTrendHoverDot").setAttribute("cx", pointX);
+    $("#categoryTrendHoverDot").setAttribute("cy", pointY);
+    $("#categoryTrendHoverBox").setAttribute("x", boxX);
+    $("#categoryTrendHoverBox").setAttribute("y", boxY);
+    const text = $("#categoryTrendHoverText");
+    text.setAttribute("x", boxX + 9);
+    text.setAttribute("y", boxY + 13);
+    text.textContent = `${trendModel.mode === "week" ? "Woche ab " : ""}${formatDate(trendModel.keys[index])}: ${trendModel.values[index]} Meldungen`;
+  }
+
+  function hideTrendHover() {
+    const group = $("#categoryTrendHover");
+    if (group) group.setAttribute("hidden", "");
   }
 
   function filteredRows() {
@@ -149,6 +231,12 @@
   }
 
   ["categoryStatus", "categoryPageSize"].forEach((id) => $("#" + id).addEventListener("change", () => { page = 0; renderReports(); }));
+  ["categoryPeriod", "categoryGranularity", "categoryFromDate", "categoryToDate"].forEach((id) => $("#" + id).addEventListener("change", () => {
+    $("#categoryCustomRange").classList.toggle("hidden", $("#categoryPeriod").value !== "custom");
+    renderTrend();
+  }));
+  $("#categoryTrend").addEventListener("pointermove", showTrendHover);
+  $("#categoryTrend").addEventListener("pointerleave", hideTrendHover);
   $("#categorySearch").addEventListener("input", () => { page = 0; renderReports(); });
   $("#categoryPrev").addEventListener("click", () => { page -= 1; renderReports(); });
   $("#categoryNext").addEventListener("click", () => { page += 1; renderReports(); });
