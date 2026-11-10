@@ -1,0 +1,21 @@
+{
+  "name": "ludwigshafen-dashboard-cloudflare",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node --check worker.js && node --check build.mjs && node --check assets/cloudflare-runtime.js",
+    "test": "npm run build && npm run check && node --test test/worker.test.mjs test/build.test.mjs",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run test && wrangler deploy",
+    "deploy:dry-run": "npm run test && wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "4.158.0"
+  }
+}
+

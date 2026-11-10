@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1",
-  "erstellt_am": "2026-11-10T11:05:04.119457+00:00",
+  "erstellt_am": "2026-11-10T14:28:35.780481+00:00",
   "quelle": {
     "system": "Maengelmelder Ludwigshafen",
     "listen_endpunkt": "https://ludwigshafen.maengelmelder.de/bms/list.ajax",
@@ -8,18 +8,18 @@
   },
   "aktualisierung": {
     "modus": "inkrementell",
-    "abgerufen_am": "2026-11-10T11:05:04.119457+00:00",
+    "abgerufen_am": "2026-11-10T14:28:35.780481+00:00",
     "abgerufene_seiten": 1,
     "vorherige_maengel": 9972,
-    "neue_maengel": 0,
-    "bekannte_ids_im_abruf": 100,
+    "neue_maengel": 12,
+    "bekannte_ids_im_abruf": 88,
     "abbruchgrund": "bekannte_id_gefunden"
   },
   "abdeckung": {
     "analysierte_html_seiten": 1,
     "extrahierte_eintraege_vor_deduplizierung": 100,
-    "eindeutige_maengel": 9972,
-    "vom_portal_gemeldete_gesamtzahl": 9970,
+    "eindeutige_maengel": 9984,
+    "vom_portal_gemeldete_gesamtzahl": 9982,
     "vollstaendig": false,
     "hinweis": "Inkrementeller Gesamtbestand; der Abruf endet bei der ersten Seite mit einer bekannten Meldungs-ID."
   },
@@ -36,7 +36,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 1
+          "position": 13
         }
       },
       {
@@ -49,7 +49,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 2
+          "position": 14
         }
       },
       {
@@ -62,7 +62,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 3
+          "position": 15
         }
       },
       {
@@ -75,7 +75,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 4
+          "position": 16
         }
       },
       {
@@ -88,7 +88,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 5
+          "position": 17
         }
       },
       {
@@ -101,7 +101,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 6
+          "position": 18
         }
       },
       {
@@ -114,7 +114,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 7
+          "position": 19
         }
       },
       {
@@ -127,7 +127,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 8
+          "position": 20
         }
       },
       {
@@ -140,7 +140,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 9
+          "position": 21
         }
       },
       {
@@ -153,7 +153,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 10
+          "position": 22
         }
       },
       {
@@ -166,7 +166,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 11
+          "position": 23
         }
       },
       {
@@ -179,7 +179,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 12
+          "position": 24
         }
       },
       {
@@ -192,7 +192,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 13
+          "position": 25
         }
       },
       {
@@ -205,7 +205,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 14
+          "position": 26
         }
       },
       {
@@ -218,7 +218,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 15
+          "position": 27
         }
       },
       {
@@ -231,7 +231,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 16
+          "position": 28
         }
       },
       {
@@ -244,7 +244,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 17
+          "position": 29
         }
       },
       {
@@ -257,7 +257,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 18
+          "position": 30
         }
       },
       {
@@ -270,7 +270,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 19
+          "position": 31
         }
       },
       {
@@ -283,7 +283,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 20
+          "position": 32
         }
       },
       {
@@ -296,7 +296,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 21
+          "position": 33
         }
       },
       {
@@ -309,7 +309,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 22
+          "position": 34
         }
       },
       {
@@ -322,7 +322,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 23
+          "position": 35
         }
       },
       {
@@ -335,7 +335,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 24
+          "position": 36
         }
       },
       {
@@ -348,7 +348,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 25
+          "position": 37
         }
       },
       {
@@ -361,7 +361,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 26
+          "position": 38
         }
       },
       {
@@ -374,7 +374,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 27
+          "position": 39
         }
       },
       {
@@ -387,7 +387,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 28
+          "position": 40
         }
       },
       {
@@ -400,7 +400,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 29
+          "position": 41
         }
       },
       {
@@ -413,7 +413,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 30
+          "position": 42
         }
       },
       {
@@ -426,7 +426,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 31
+          "position": 43
         }
       },
       {
@@ -439,7 +439,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 32
+          "position": 44
         }
       },
       {
@@ -452,7 +452,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 33
+          "position": 45
         }
       },
       {
@@ -465,7 +465,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 34
+          "position": 46
         }
       },
       {
@@ -478,7 +478,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 35
+          "position": 47
         }
       },
       {
@@ -491,7 +491,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 36
+          "position": 48
         }
       },
       {
@@ -504,7 +504,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 37
+          "position": 49
         }
       },
       {
@@ -517,7 +517,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 38
+          "position": 50
         }
       },
       {
@@ -530,7 +530,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 39
+          "position": 51
         }
       },
       {
@@ -543,7 +543,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 40
+          "position": 52
         }
       },
       {
@@ -556,7 +556,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 41
+          "position": 53
         }
       },
       {
@@ -569,7 +569,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 42
+          "position": 54
         }
       },
       {
@@ -582,7 +582,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 43
+          "position": 55
         }
       },
       {
@@ -595,7 +595,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 44
+          "position": 56
         }
       },
       {
@@ -608,7 +608,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 45
+          "position": 57
         }
       },
       {
@@ -621,7 +621,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 46
+          "position": 58
         }
       },
       {
@@ -634,7 +634,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 47
+          "position": 59
         }
       },
       {
@@ -647,7 +647,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 48
+          "position": 60
         }
       },
       {
@@ -660,7 +660,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 49
+          "position": 61
         }
       },
       {
@@ -673,7 +673,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 50
+          "position": 62
         }
       },
       {
@@ -686,7 +686,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 51
+          "position": 63
         }
       },
       {
@@ -699,7 +699,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 52
+          "position": 64
         }
       },
       {
@@ -712,7 +712,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 53
+          "position": 65
         }
       },
       {
@@ -725,7 +725,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 54
+          "position": 66
         }
       },
       {
@@ -738,7 +738,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 55
+          "position": 67
         }
       },
       {
@@ -751,7 +751,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 56
+          "position": 68
         }
       },
       {
@@ -764,7 +764,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 57
+          "position": 69
         }
       },
       {
@@ -777,7 +777,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 58
+          "position": 70
         }
       },
       {
@@ -790,7 +790,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 59
+          "position": 71
         }
       },
       {
@@ -803,7 +803,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 60
+          "position": 72
         }
       },
       {
@@ -816,7 +816,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 61
+          "position": 73
         }
       },
       {
@@ -829,7 +829,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 62
+          "position": 74
         }
       },
       {
@@ -842,7 +842,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 63
+          "position": 75
         }
       },
       {
@@ -855,7 +855,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 64
+          "position": 76
         }
       },
       {
@@ -868,7 +868,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 65
+          "position": 77
         }
       },
       {
@@ -881,7 +881,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 66
+          "position": 78
         }
       },
       {
@@ -894,7 +894,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 67
+          "position": 79
         }
       },
       {
@@ -907,7 +907,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 68
+          "position": 80
         }
       },
       {
@@ -920,7 +920,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 69
+          "position": 81
         }
       },
       {
@@ -933,7 +933,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 70
+          "position": 82
         }
       },
       {
@@ -946,7 +946,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 71
+          "position": 83
         }
       },
       {
@@ -959,7 +959,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 72
+          "position": 84
         }
       },
       {
@@ -972,7 +972,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 73
+          "position": 85
         }
       },
       {
@@ -985,7 +985,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 74
+          "position": 86
         }
       },
       {
@@ -998,7 +998,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 75
+          "position": 87
         }
       },
       {
@@ -1011,7 +1011,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 76
+          "position": 88
         }
       },
       {
@@ -1024,7 +1024,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 77
+          "position": 89
         }
       },
       {
@@ -1037,7 +1037,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 78
+          "position": 90
         }
       },
       {
@@ -1050,7 +1050,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 79
+          "position": 91
         }
       },
       {
@@ -1063,7 +1063,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 80
+          "position": 92
         }
       },
       {
@@ -1076,7 +1076,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 81
+          "position": 93
         }
       },
       {
@@ -1089,7 +1089,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 82
+          "position": 94
         }
       },
       {
@@ -1102,7 +1102,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 83
+          "position": 95
         }
       },
       {
@@ -1115,7 +1115,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 84
+          "position": 96
         }
       },
       {
@@ -1128,7 +1128,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 85
+          "position": 97
         }
       },
       {
@@ -1141,7 +1141,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 86
+          "position": 98
         }
       },
       {
@@ -1154,7 +1154,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 87
+          "position": 99
         }
       },
       {
@@ -1167,167 +1167,37 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 88
-        }
-      },
-      {
-        "id": "3180797",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 64
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 89
-        }
-      },
-      {
-        "id": "3180761",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 65
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 90
-        }
-      },
-      {
-        "id": "3180481",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 66
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 91
-        }
-      },
-      {
-        "id": "3180161",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 67
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 92
-        }
-      },
-      {
-        "id": "3180153",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 68
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 93
-        }
-      },
-      {
-        "id": "3180147",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 69
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 94
-        }
-      },
-      {
-        "id": "3180137",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 70
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 95
-        }
-      },
-      {
-        "id": "3179821",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 71
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 96
-        }
-      },
-      {
-        "id": "3179761",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 72
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 97
-        }
-      },
-      {
-        "id": "3179495",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 73
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 98
-        }
-      },
-      {
-        "id": "3179419",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 74
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 99
-        }
-      },
-      {
-        "id": "3179251",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 75
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
           "position": 100
         }
       }
     ],
     "widerspruechliche_doppelte_ids": [
+      {
+        "id": "3188691",
+        "behalten": {
+          "datei": "seite_1.html",
+          "seite": 1,
+          "position": 5
+        },
+        "doppelt": {
+          "datei": "seite_1.html",
+          "seite": 1,
+          "position": 17
+        }
+      },
+      {
+        "id": "3188177",
+        "behalten": {
+          "datei": "seite_1.html",
+          "seite": 1,
+          "position": 14
+        },
+        "doppelt": {
+          "datei": "seite_1.html",
+          "seite": 1,
+          "position": 26
+        }
+      },
       {
         "id": "3187245",
         "behalten": {
@@ -1338,7 +1208,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 26
+          "position": 38
         }
       },
       {
@@ -1351,7 +1221,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 27
+          "position": 39
         }
       },
       {
@@ -1364,7 +1234,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 28
+          "position": 40
         }
       },
       {
@@ -1377,7 +1247,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 30
+          "position": 42
         }
       },
       {
@@ -1390,7 +1260,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 31
+          "position": 43
         }
       },
       {
@@ -1403,7 +1273,33 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 32
+          "position": 44
+        }
+      },
+      {
+        "id": "3186173",
+        "behalten": {
+          "datei": "seite_1.html",
+          "seite": 1,
+          "position": 16
+        },
+        "doppelt": {
+          "datei": "seite_1.html",
+          "seite": 1,
+          "position": 49
+        }
+      },
+      {
+        "id": "3186054",
+        "behalten": {
+          "datei": "seite_1.html",
+          "seite": 1,
+          "position": 17
+        },
+        "doppelt": {
+          "datei": "seite_1.html",
+          "seite": 1,
+          "position": 50
         }
       },
       {
@@ -1416,7 +1312,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 44
+          "position": 56
         }
       },
       {
@@ -1429,7 +1325,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 65
+          "position": 77
         }
       },
       {
@@ -1442,20 +1338,7 @@
         "doppelt": {
           "datei": "seite_1.html",
           "seite": 1,
-          "position": 85
-        }
-      },
-      {
-        "id": "3180481",
-        "behalten": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 66
-        },
-        "doppelt": {
-          "datei": "seite_1.html",
-          "seite": 1,
-          "position": 91
+          "position": 97
         }
       }
     ],
@@ -1463,6 +1346,198 @@
     "hinweis": "Beschreibungstexte koennen bereits in der HTML-Listenansicht gekuerzt sein; Bild-URLs werden nicht exportiert."
   },
   "maengel": [
+    {
+      "id": "3189999",
+      "beschreibung": "Schuhe und leere Alkoholflaschen um die Bäume herum. Klamottenberg um den Bau...",
+      "beschreibung_gekuerzt": true,
+      "ort": "Kurfürstenstr 8, 67061 Ludwigshafen am Rhein-Süd, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Kleinabfälle",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189999",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 1
+      }
+    },
+    {
+      "id": "3189817",
+      "beschreibung": "Einkaufswagen und Stuhl stehen seit 2 Wochen im Gässchen",
+      "beschreibung_gekuerzt": false,
+      "ort": "Luitpoldstraße 80, 67063 Ludwigshafen am Rhein-Friesenheim, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Wilde Müllablagerungen",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189817",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 2
+      }
+    },
+    {
+      "id": "3189681",
+      "beschreibung": "Astbrüche und störende Äste: Es ragen mehrere Äste vom Baum auf städtischen ...",
+      "beschreibung_gekuerzt": true,
+      "ort": "Dubliner Str. 30, 67069 Pfingstweide, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Bäume",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189681",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 3
+      }
+    },
+    {
+      "id": "3189633",
+      "beschreibung": "Heinigstraße 25a 67059 Ludwigshafen. Nachdem der Zugang vom Baum auf der Stra...",
+      "beschreibung_gekuerzt": true,
+      "ort": "Heinigstraße 25A, 67059 Ludwigshafen am Rhein, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Kleinabfälle",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189633",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 4
+      }
+    },
+    {
+      "id": "3189607",
+      "beschreibung": "Papiercontainer wurde nicht abgeholt und behindert den Personenverkehr auf de...",
+      "beschreibung_gekuerzt": true,
+      "ort": "Schanzstraße 65, 67063 Ludwigshafen am Rhein, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Überfüllte Müllbehälter auf Grünflächen",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189607",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 5
+      }
+    },
+    {
+      "id": "3189589",
+      "beschreibung": "Grünfläche hinter der Bushaltstelle, grenzt an Edeka-Markt, total vermüllt. R...",
+      "beschreibung_gekuerzt": true,
+      "ort": "Friesenheim, Ebertpark Süd, Friesenheim, 67063 Ludwigshafen am Rhein, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Überfüllte Müllbehälter auf Grünflächen",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189589",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 6
+      }
+    },
+    {
+      "id": "3189564",
+      "beschreibung": "in der Grünstädter Straße liegt sehr viel Laub, das bei Nässe glatt werden kann",
+      "beschreibung_gekuerzt": false,
+      "ort": "Grünstadter Str. 4, 67067 Ludwigshafen am Rhein-Maudach, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Reinigung Fahrbahn etc.",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189564",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 7
+      }
+    },
+    {
+      "id": "3189449",
+      "beschreibung": "Parkplatz vor der Sportanlage komplett vermüllt",
+      "beschreibung_gekuerzt": false,
+      "ort": "Mundenheim, Raschig, 67061 Ludwigshafen am Rhein, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Wilde Müllablagerungen",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189449",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 8
+      }
+    },
+    {
+      "id": "3189437",
+      "beschreibung": "Zwei Pkw ohne Zulassung, Opel Kombi mit defekter Schnauze rechts, sowie ein P...",
+      "beschreibung_gekuerzt": true,
+      "ort": "Jakob-Binder-Straße 8, 67063 Ludwigshafen am Rhein, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Kfz ohne Zulassung",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189437",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 9
+      }
+    },
+    {
+      "id": "3189359",
+      "beschreibung": "Im Trassenwald an der Schwedlerstraße im Bereich der Hausnummer 116 liegt zah...",
+      "beschreibung_gekuerzt": true,
+      "ort": "Schwedlerstraße 116, 67063 Ludwigshafen am Rhein-Friesenheim, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Kleinabfälle",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189359",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 10
+      }
+    },
+    {
+      "id": "3189331",
+      "beschreibung": "Ludwigstraße 40 - Matratzen, Palette und anderer Sperrmüll (etwa 1,5 Kubikmeter)",
+      "beschreibung_gekuerzt": false,
+      "ort": "Ludwigstraße 40, 67059 Ludwigshafen am Rhein, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Wilde Müllablagerungen",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189331",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 11
+      }
+    },
+    {
+      "id": "3189277",
+      "beschreibung": "Restmüll inkl. Lebensmittel liegen in aufgerissenen Tüten neben der Hofeinfah...",
+      "beschreibung_gekuerzt": true,
+      "ort": "Pfalzgrafenstraße 30, 67061 Ludwigshafen am Rhein-Süd, Germany",
+      "gemeldet_am": "2026-11-10",
+      "kategorie": "Kleinabfälle",
+      "status": "in Bearbeitung",
+      "detail_url": "https://ludwigshafen.maengelmelder.de/bms/3189277",
+      "hat_bild": false,
+      "quelle": {
+        "datei": "seite_1.html",
+        "seite": 1,
+        "position": 12
+      }
+    },
     {
       "id": "3188859",
       "beschreibung": "Bei Haus Nr. 5 ist eine Laterne die nur ab und zu mal funktioniert. Und wenn ...",
