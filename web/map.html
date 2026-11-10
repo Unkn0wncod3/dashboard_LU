@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#154d70">
+  <title>Stadtkarte – Dashboard Ludwigshafen</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="platformPage">
+  <div class="topline"></div>
+  <header class="sitehead"><div class="headin"><a href="/" class="identity" aria-label="Zur Statistikübersicht"><div class="logo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 26V12l11-8 11 8v14H5Z"/><path d="M12 26v-9h8v9"/></svg></div><div class="brand">Dashboard-Plattform<span>Stadt Ludwigshafen am Rhein</span></div></a><nav class="headlinks"><a href="/">Mängelmelder</a><a href="/overview.html">Gesamtübersicht</a><a class="active" href="/map.html">Stadtkarte</a></nav></div></header>
+  <div class="layout platformLayout" id="appLayout">
+    <aside class="side" id="sideNav"><button class="sideToggle" id="sideToggle" type="button" aria-label="Navigation einklappen" aria-expanded="true"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg><span>Navigation einklappen</span></button><nav aria-label="Dashboard-Navigation"><div class="navlabel">Ansichten</div><a class="navitem" href="/#uebersicht"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="8" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="15" width="7" height="6" rx="1"/></svg><span>Mängelmelder</span></a><a class="navitem" href="/#abteilungen"><svg viewBox="0 0 24 24"><path d="M4 20V9m6 11V4m6 16v-7m4 7v-10"/></svg><span>Kategorien</span></a><a class="navitem" href="/#meldungen"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg><span>Alle Meldungen</span></a><div class="navlabel">Plattform</div><a class="navitem" href="/overview.html"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z"/></svg><span>Gesamtübersicht</span></a><a class="navitem selected" href="/map.html"><svg viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></svg><span>Stadtkarte</span></a></nav></aside>
+    <main class="main mapMain">
+      <div class="crumb">Dashboard <span> / </span> <b>Stadtkarte</b></div>
+      <div class="headline mapHeadline"><div><div class="eyebrow">Geografische Ansicht</div><h1>Stadtkarte Ludwigshafen</h1><p>Interaktiver Kartenausschnitt ohne Fachdaten und ohne externe Kartenübertragung.</p></div><div class="mapStatus"><span></span>Kartenbasis noch offen</div></div>
+      <section class="panel mapPanel" aria-label="Interaktive Stadtkarte">
+        <div class="mapToolbar"><div><strong>Arbeitsbereich Ludwigshafen</strong><small id="mapCoordinates">49,490° N · 8,430° E</small></div><div class="mapButtons"><button id="mapZoomOut" type="button" aria-label="Karte verkleinern">−</button><button id="mapZoomIn" type="button" aria-label="Karte vergrößern">+</button><button id="mapReset" type="button">Ausschnitt zurücksetzen</button></div></div>
+        <div class="mapViewport" id="mapViewport" tabindex="0" role="application" aria-label="Leere interaktive Kartenfläche. Mit Maus oder Pfeiltasten verschieben, mit Mausrad oder Plus und Minus zoomen.">
+          <div class="mapWorld" id="mapWorld"><div class="mapExtent"><span>Ludwigshafen am Rhein</span><small>geografischer Arbeitsbereich – keine Verwaltungsgrenze</small></div><div class="mapCenter" aria-hidden="true"></div><span class="mapCompass">N</span></div>
+          <div class="mapEmptyNotice"><strong>Noch keine freigegebene Kartenbasis</strong><span>Hier können später genehmigte Kartenlayer und georeferenzierte Fachdaten eingebunden werden.</span></div>
+          <div class="mapScale" id="mapScale">Zoom 100 %</div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/assets/navigation.js" defer></script>
+  <script src="/assets/map.js" defer></script>
+</body>
+</html>

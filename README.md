@@ -170,13 +170,15 @@ http://127.0.0.1:8000/
 Der Server läuft im Vordergrund und wird mit `Strg+C` beendet. Ein direktes
 Öffnen von `web/index.html` als `file://` ist nicht unterstützt. Die Seite zeigt
 einen sichtbaren Fehlerstatus, wenn eine der beiden JSON-Dateien fehlt oder ein
-unerwartetes Format besitzt. Über „Serverdaten neu laden“ kann der Abruf
-wiederholt werden.
+unerwartetes Format besitzt. Ein erneutes Laden der Seite liest beide
+Serverdateien noch einmal ein.
 
 ### Dashboard-Funktionen
 
 - manueller Refresh-Button für den inkrementellen Hintergrundabruf mit
   sichtbarem Lauf- und Fehlerstatus
+- dauerhaft sichtbare und einklappbare Seitennavigation; im eingeklappten
+  Zustand nutzt der Inhalt die zusätzlich verfügbare Bildschirmbreite
 - Zeitraumfilter direkt am Zeitdiagramm für 7, 14, 30, 90, 180 und 365 Tage,
   Gesamtbestand oder einen frei gewählten Datumsbereich; Standard sind 30 Tage
 - direkt am Diagramm umschaltbare tägliche beziehungsweise wöchentliche
@@ -189,12 +191,18 @@ wiederholt werden.
 - Karten je Meldekategorie mit Volumen, Anteil, aktivem Bestand und
   Lösungsquote
 - eigene Detailseite je Kategorie mit kategoriespezifischen Kennzahlen,
-  Tagesverlauf, Suche, Statusfilter und paginierter Meldungsliste
-- Detailtabelle mit Ort, validiertem Meldungslink, Volltextsuche und wählbaren
-  Seitengrößen von 10, 15, 25 oder 50 Zeilen
-- vollständig klickbare Meldungszeilen und Meldungskarten, die über die in der
+  konfigurierbarem Tages-/Wochenverlauf, Suche, Statusfilter und paginierter
+  Meldungsliste
+- Meldungskarten mit Ort, Kategorie, validiertem Meldungslink, Volltextsuche
+  und wählbaren Seitengrößen von 10, 15, 25 oder 50 Einträgen
+- vollständig klickbare Meldungskarten, die über die in der
   Gesamt-JSON gespeicherte `detail_url` zum Originaleintrag führen
 - CSV-Export des aktuell gefilterten Datenbestands
+- bildschirmfüllende Gesamtübersicht mit schrittweise verdichtbarer Anzeige
+  der tatsächlich verfügbaren Kennzahlen
+- interaktive, zoombare und verschiebbare Kartenfläche für Ludwigshafen; bis
+  zur fachlichen und datenschutzrechtlichen Freigabe ohne externen
+  Kartenanbieter und ohne Fachdaten
 
 ## Aufbau der Analyse
 

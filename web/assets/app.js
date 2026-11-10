@@ -16,7 +16,6 @@
 
   let data = [];
   let currentPage = 0;
-  let imported = false;
   let trendModel = null;
   let refreshPollAttempts = 0;
 
@@ -302,23 +301,22 @@
       const normalized = analysis.maengel.map(normalizeRecord).filter(Boolean);
       if (!normalized.length) throw new Error("Keine Meldungen mit gültigem Datum gefunden.");
       data = normalized;
-      imported = true;
       currentPage = 0;
       $("#dataBadge").textContent = "LOKALE SERVERDATEN";
       $("#dataBadge").style.cssText = "color:#33785e;background:#e7f5ee;border-color:#cde8d9";
       $("#dataNotice").innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m7 12 3 3 7-7"/></svg><span><strong>Lokale Serverdaten geladen.</strong> Gesamt- und Minimalstatistik wurden erfolgreich eingelesen.</span>';
       const coverage = analysis.abdeckung?.vollstaendig ? "Portalbestand vollständig" : "lokaler Teilbestand";
-      $("#importInfo").textContent = `Gesamtauswertung: ${normalized.length} Meldungen · Minimalstatistik: ${summary.anzahl_maengel} · ${coverage}${summary.anzahl_maengel !== normalized.length ? " · Achtung: Anzahl weicht ab." : ""}`;
+      if (summary.anzahl_maengel !== normalized.length) {
+        $("#dataNotice").innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 17h.01"/></svg><span><strong>Datenstände weichen voneinander ab.</strong> Gesamtauswertung: ${formatNumber(normalized.length)} · Minimalstatistik: ${formatNumber(summary.anzahl_maengel)} · ${coverage}.</span>`;
+      }
       render();
       toast(`${normalized.length} Meldungen aus beiden JSON-Endpunkten geladen.`);
       return true;
     } catch (error) {
       data = [];
-      imported = false;
       $("#dataBadge").textContent = "DATENFEHLER";
       $("#dataBadge").style.cssText = "color:#a14d43;background:#faece9;border-color:#efcfc9";
       $("#dataNotice").innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 17h.01"/></svg><span><strong>Lokale Serverdaten konnten nicht geladen werden.</strong> Server und JSON-Dateien prüfen.</span>';
-      $("#importInfo").textContent = error.message;
       render();
       toast(`Datenladen fehlgeschlagen: ${error.message}`);
       return false;
@@ -449,26 +447,6 @@
     return ["id;titel;kategorie;ort;datum;status", ...rows.map((row) => fields.map((field) => `"${String(row[field] ?? "").replaceAll('"', '""')}"`).join(";"))].join("\r\n");
   }
 
-  function parseCsv(text) {
-    const lines = [];
-    let row = [], field = "", quoted = false;
-    for (let index = 0; index < text.length; index += 1) {
-      const character = text[index];
-      if (character === '"') {
-        if (quoted && text[index + 1] === '"') { field += '"'; index += 1; } else quoted = !quoted;
-      } else if (!quoted && [";", ",", "\t"].includes(character)) { row.push(field); field = ""; }
-      else if (!quoted && ["\r", "\n"].includes(character)) {
-        if (character === "\r" && text[index + 1] === "\n") index += 1;
-        row.push(field); lines.push(row); row = []; field = "";
-      } else field += character;
-    }
-    row.push(field);
-    if (row.some((value) => value.trim())) lines.push(row);
-    const headers = lines.shift() || [];
-    if (headers.length < 2) throw new Error("CSV-Spalten nicht erkannt. Bitte Semikolon oder Komma verwenden.");
-    return lines.filter((line) => line.some((value) => value.trim())).map((line) => Object.fromEntries(headers.map((header, index) => [header.trim().replace(/^\ufeff/, ""), line[index] ?? ""])));
-  }
-
   ["period", "granularity", "fromDate", "toDate"].forEach((id) => $("#" + id).addEventListener("change", () => {
     currentPage = 0;
     $("#customRange").classList.toggle("hidden", $("#period").value !== "custom");
@@ -486,35 +464,8 @@
     const selectedStatus = $("#tableStatus").value;
     const rows = filteredRows().filter((row) => selectedStatus === "all" || row.status === selectedStatus);
     download("maengelmelder_statistik_export.csv", toCsv(rows), "text/csv;charset=utf-8");
-    toast(`${rows.length} gefilterte Meldungen exportiert${imported ? "" : " (keine Serverdaten)"}.`);
+    toast(`${rows.length} gefilterte Meldungen exportiert.`);
   });
-  $("#template").addEventListener("click", () => download("maengelmelder_import_vorlage.csv", "id;titel;kategorie;ort;datum;status\n1234;Straßenlaterne defekt;Straßenbeleuchtung;Musterstraße 1;2026-10-15;In Bearbeitung", "text/csv;charset=utf-8"));
-  $("#fileInput").addEventListener("change", async (event) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    try {
-      const text = await file.text();
-      let raw = file.name.toLowerCase().endsWith(".json") ? JSON.parse(text) : parseCsv(text);
-      if (!Array.isArray(raw)) raw = raw.maengel || raw.entries || raw.meldungen || raw.reports || raw.data || raw.results;
-      if (!Array.isArray(raw)) throw new Error("Erwartet wird eine Liste von Datensätzen.");
-      const normalized = raw.map(normalizeRecord).filter(Boolean);
-      if (!normalized.length) throw new Error("Kein gültiges Datum erkannt. Spaltenüberschriften prüfen.");
-      data = normalized;
-      imported = true;
-      currentPage = 0;
-      $("#period").value = "30";
-      $("#tableStatus").value = "all";
-      $("#search").value = "";
-      $("#dataBadge").textContent = "IMPORTIERTE DATEN";
-      $("#dataBadge").style.cssText = "color:#33785e;background:#e7f5ee;border-color:#cde8d9";
-      $("#dataNotice").innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m7 12 3 3 7-7"/></svg><span><strong>Eigene Datei geladen.</strong> Die Statistik basiert auf den lokal im Browser importierten Daten.</span>';
-      $("#importInfo").textContent = `Datei: ${file.name} · ${normalized.length} Datensätze importiert${raw.length !== normalized.length ? ` · ${raw.length - normalized.length} ohne gültiges Datum übersprungen` : ""}.`;
-      render();
-      toast(`${normalized.length} Datensätze erfolgreich importiert.`);
-    } catch (error) { toast(`Import fehlgeschlagen: ${error.message}`); }
-    finally { event.target.value = ""; }
-  });
-  $("#resetData").addEventListener("click", loadServerData);
 
   render();
   loadServerData();
